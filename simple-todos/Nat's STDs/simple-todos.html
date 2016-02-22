@@ -1,27 +1,30 @@
 <head>
-  <title>Todo List</title>
+  <title>Choate Book</title>
 </head>
 
 <body>
   <div class="container">
     <header>
-      <h1>Todo List ({{incompleteCount}})</h1>
+      <h1>Choate Book ({{incompleteCount}})</h1>
 
-      <label class="hide-completed">
+     <!--  <label class="hide-completed">
         <input type="checkbox" checked="{{hideCompleted}}" />
         Hide Completed Tasks
-      </label>
+      </label> -->
 
       {{> loginButtons}}
+      {{>buttons}}
 
       {{#if currentUser}}
         <form class="new-task">
           <input type="text" name="text" placeholder="Type to add new tasks" />
         </form>
       {{/if}}
-    </header>
 
+    </header>
+    <ul class = "enrolledClass"><strong> My Enrolled Classes </strong></ul>
     <ul>
+
       {{#each tasks}}
         {{> task}}
       {{/each}}
@@ -47,4 +50,9 @@
 
     <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
+</template>
+
+<template name = "buttons">
+<input type = "button" class="create" value="Create A Class">
+<input type = "button" class="enroll" value="Enroll In A Class">
 </template>

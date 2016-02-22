@@ -32,8 +32,17 @@ header {
 }
 
 #login-buttons {
-  display: block;
+  /*display: block;*/
+  float: right;
 }
+#buttons {
+  display: block;
+  float: left;
+}
+.enrolledClass {
+  float: center;
+}
+
 
 h1 {
   font-size: 1.5em;
@@ -102,9 +111,9 @@ li.private {
   border-color: #ddd;
 }
 
-header .hide-completed {
+/*header .hide-completed {
   float: right;
-}
+}*/
 
 .toggle-private {
   margin-left: 5px;

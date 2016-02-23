@@ -23,12 +23,14 @@
 
     </header>
     <ul class = "enrolledClass"><strong> My Enrolled Classes </strong></ul>
+    <ul id = "yolo"><div>what</div></ul>
     <ul>
 
       {{#each tasks}}
         {{> task}}
       {{/each}}
     </ul>
+
   </div>
 </body>
 
@@ -53,6 +55,7 @@
 </template>
 
 <template name = "buttons">
-<input type = "button" class="create" value="Create A Class">
-<input type = "button" class="enroll" value="Enroll In A Class">
+  <input type = "button" class="create" value="Create A Class">
+  <input type = "button" class="enroll" value="Enroll In A Class">
+  {{dell}}
 </template>

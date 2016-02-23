@@ -1,4 +1,6 @@
 Tasks = new Mongo.Collection("tasks");
+choateUsers = new Mongo.Collection('choateUsers');  //var means private
+Courses = new Mongo.Collection('courses');  //var means private
 
 if (Meteor.isServer) {
   // This code only runs on the server
@@ -15,9 +17,19 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   // This code only runs on the client
+  Meteor.subscribe("courses");
   Meteor.subscribe("tasks");
 
   Template.body.helpers({
+   
+
+
+
+
+
+
+
+
     tasks: function () {
       if (Session.get("hideCompleted")) {
         // If hide completed is checked, filter tasks
@@ -63,7 +75,12 @@ if (Meteor.isClient) {
   Template.task.events({
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
+    
       Meteor.call("setChecked", this._id, ! this.checked);
+      Meteor.call("addClassDiv", "hello");
+
+      
+
     },
     "click .delete": function () {
       Meteor.call("deleteTask", this._id);
@@ -75,6 +92,29 @@ if (Meteor.isClient) {
 
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
+  });
+  Template.buttons.helpers({
+     // 'dell': function () {
+     //    choateUsers.insert({
+     //      'name': "Kanye",
+     //      'info': {
+     //        'title': "APCS",
+     //        'instructor': "Ms. Hoke", 
+     //        'block': "d"}
+     //    })
+     //   // console.log(choateUsers.find());
+     //  }
+      'dispClassList': function (){
+        var  player = choateUsers.find() 
+      }
+  });
+  Template.buttons.events({
+    "click .enroll": function () {
+      Meteor.call("addUser", "George", "AP CS","ms hoke", "d" );
+      Meteor.call("addClassDiv", "hello");
+
+      //console.log("enroll");
+    }
   });
 }
 
@@ -119,5 +159,43 @@ Meteor.methods({
     }
 
     Tasks.update(taskId, { $set: { private: setToPrivate } });
+  },
+  addClassDiv: function (nameUser){
+    var msgContainer = document.createElement('div');
+    msgContainer.appendChild(document.createTextNode(nameUser));
+    // msgContainer.id = "";
+    // msgContainer.className = "";
+    document.getElementById("yolo").appendChild(msgContainer);
+  },
+  addUser: function (nameUser, class, teacher, classBlock){
+    choateUsers.insert({
+      'name': "nameUser",
+      'title': "class",
+      'instructor': "teacher",
+      'block': "classBlock"
+    });
   }
+  // addClassDiv: function (nameUser){
+  //   //var title = choateUsers.find({name: nameUser}).fetch();
+  //   var msgContainer = document.createElement('div');
+  //   //var ll = document.getElementByID("hello");
+  //   msgContainer.id = 'hello';
+  //   msgContainer.className = 'From the other side';
+  //   msgContainer.appendChild(document.createTextNode("hello"));
+  //   document.body.appendChild(msgContainer);//getElementByID("yolo")
+  //  console.log("add class div");
+  // }
+  // addUser: function (nameUser, class, teacher, classBlock) {
+  //   // Make sure the user is logged in before inserting a task
+  //   if (! Meteor.userId()) {
+  //     throw new Meteor.Error("not-authorized");
+  //   }
+
+  //   choateUsers.insert({
+  //     'name':nameUser,
+  //     'title': class,
+  //     'instructor': teacher,
+  //     'block': classBlock
+  //   });
+  // }
 });

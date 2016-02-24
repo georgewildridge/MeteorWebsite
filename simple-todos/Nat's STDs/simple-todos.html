@@ -22,25 +22,25 @@
          <input type="text" name="teacher" id = "textTeacher" placeholder="Type to add new teacher"/>
           <input type="text" name="block" id = "textBlock" placeholder="Type to add what block"/>
         </form>
-       <!--  <form class="new-task">
+          <form class="new-task">
           <input type="text" name = "text" class = "new-text" placeholder="dh"/>
-        </form> -->
+        </form> 
       {{/if}}
  -->
     </header>
     <ul class = "enrolledClass"><strong> My Enrolled Classes </strong></ul>
-    <ul id = "yolo"><div>what</div></ul>
+    <ul id = "yo"><div>what</div></ul>
     <ul>
 
       {{#each tasks}}
         {{> task}}
       {{/each}}
     </ul>
-    <ul>
-<!--       {{#each choateUsers}}
- -->        {{> classes}}
-<!--       {{/each}}
- -->    </ul>
+    <!-- <ul>
+      {{#each choateUsers}}
+        {{> classes}}
+           {{/each}}
+    </ul> -->
   </div>
 </body>
 
@@ -60,22 +60,22 @@
       </button>
     {{/if}}
 
-    <span class="text"><strong>{{username}}</strong> - {{title}}</span>
+    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
 </template>
 
 <template name = "buttons">
-<<<<<<< HEAD
-<div><ol>
-  <!-- <input type = "button" class="create" value="Create A Class">
+<!-- <<<<<<< HEAD
+ --><!-- <div><ol>
+ -->  <!-- <input type = "button" class="create" value="Create A Class">
   <input type = "button" class="enroll" value="Enroll In A Class"> -->
   <li class = "create"><button>Create a new class!</button></li>
   <li class = "bunny"><button>Enroll in a class!</button></li>
   <!-- <div id='content'>Hello World</div>
   <input type='button' id='hideshow' value='hide/show'>
  -->
-  </ol>
-</div>
+ <!--  </ol>
+</div> -->
 <!-- <select>
       <option value = "first">Enroll in a class</option>
       <option value = "second">second</option>
@@ -105,43 +105,47 @@
 
     <li><button class = "destroyCreate">Cancel</button></li>
   </div>
-=======
+<!-- =======
   <input type = "button" class="create" value="Create A Class">
   <input type = "button" class="enroll" value="Enroll In A Class">
-<<<<<<< HEAD
+<<<<<<< HEAD -->
 
  <!--  {{#each player}}
   {{dell}} -->
 </template>
 
-<template name = "classes">
+<!-- <template name = "classes">
   <span class = "classdiv">{{name}}</span>
-=======
-  {{dell}}
->>>>>>> origin/master
-</template>
+
+</template> -->
 
 
 <template name="create">
   <div id="createDiv"  style="display:none;">
     <h3>What is your class called?</h3>
-    <input className="className" placeholder = "Class Name"/>
+    <input className="className" id = "textName" placeholder = "Class Name"/>
 
     <h3>What is the teacher's name?</h3>
-    <input teacher="teacher" placeholder = "Teacher's Name"/>
+    <input teacher="teacher" id = "textTeacher" placeholder = "Teacher's Name"/>
 
     <h3>What block does your class meet?</h3>
-    <select> <option value="NA">Choose a block</option>
-    <option value="A">A</option>
-    <option value="B">B</option>
-    <option value="C">C</option>
-    <option value="D">D</option>
-    <option value="E">E</option>
-    <option value="F">F</option>
-    <option value="G">G</option>
-    <option value="H">H</option></select>
+      <select id = "textBlock">
+        <option value="NA">Choose a block</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+        <option value="G">G</option>
+        <option value="H">H</option>
+      </select>
 
-    <li><button class = "destroyCreate">Cancel</button></li>
+    <li>
+      <button class = "submitCreate">Submit</button>
+      <button class = "destroyCreate">Cancel</button>
+    </li>
+
   </div>
->>>>>>> origin/master
-</template>
+<!-- >>>>>>> origin/master
+ --></template>

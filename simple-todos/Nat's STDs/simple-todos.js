@@ -20,6 +20,12 @@ if (Meteor.isClient) {
   Meteor.subscribe("tasks");
 
 
+  Template.enroll.helpers({
+    tasks: function () {
+      return Tasks.find();
+    }
+  })
+
   Template.body.helpers({
     tasks: function () {
       if (Session.get("hideCompleted")) {
@@ -91,7 +97,7 @@ if (Meteor.isClient) {
 
   Template.enroll.events({
     'click .destroyEnroll':function(){
-      document.getElementById('createDiv2').style.display = "none";
+      document.getElementById('enrollDiv').style.display = "none";
     }
   });
 

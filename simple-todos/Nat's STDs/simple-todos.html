@@ -7,26 +7,12 @@
     <header>
       <h1>ChoateBook </h1>
 
-     <!--  <label class="hide-completed">
-        <input type="checkbox" checked="{{hideCompleted}}" />
-        Hide Completed Tasks
-      </label> -->
-
       {{> loginButtons}}
-      {{>buttons}}
-      {{> create}}
-<!-- 
       {{#if currentUser}}
-        <form class="new-task">
-          <input type="text" name="text" id="textName" placeholder="Type to add new class name" />
-         <input type="text" name="teacher" id = "textTeacher" placeholder="Type to add new teacher"/>
-          <input type="text" name="block" id = "textBlock" placeholder="Type to add what block"/>
-        </form>
-          <form class="new-task">
-          <input type="text" name = "text" class = "new-text" placeholder="dh"/>
-        </form> 
+        {{>buttons}}
+        {{> create}}
       {{/if}}
- -->
+
     </header>
     <ul class = "enrolledClass"><strong> My Enrolled Classes </strong></ul>
     <ul id = "yo"><div>what</div></ul>
@@ -36,11 +22,6 @@
         {{> task}}
       {{/each}}
     </ul>
-    <!-- <ul>
-      {{#each choateUsers}}
-        {{> classes}}
-           {{/each}}
-    </ul> -->
   </div>
 </body>
 
@@ -64,26 +45,13 @@
   </li>
 </template>
 
+
 <template name = "buttons">
-<!-- <<<<<<< HEAD
- --><!-- <div><ol>
- -->  <!-- <input type = "button" class="create" value="Create A Class">
-  <input type = "button" class="enroll" value="Enroll In A Class"> -->
   <li class = "create"><button>Create a new class!</button></li>
   <li class = "bunny"><button>Enroll in a class!</button></li>
-  <!-- <div id='content'>Hello World</div>
-  <input type='button' id='hideshow' value='hide/show'>
- -->
- <!--  </ol>
-</div> -->
-<!-- <select>
-      <option value = "first">Enroll in a class</option>
-      <option value = "second">second</option>
-      <option value = <input type="text">
-      <input type="text" placeholder = "Filler"/>
-      </option>
-    </select> -->
 </template> 
+
+
 <template name="enroll">
   <div id="erollDiv"  style="display:none;">
     <h3>What is your class called?</h3>
@@ -105,19 +73,8 @@
 
     <li><button class = "destroyCreate">Cancel</button></li>
   </div>
-<!-- =======
-  <input type = "button" class="create" value="Create A Class">
-  <input type = "button" class="enroll" value="Enroll In A Class">
-<<<<<<< HEAD -->
 
- <!--  {{#each player}}
-  {{dell}} -->
 </template>
-
-<!-- <template name = "classes">
-  <span class = "classdiv">{{name}}</span>
-
-</template> -->
 
 
 <template name="create">
@@ -147,5 +104,4 @@
     </li>
 
   </div>
-<!-- >>>>>>> origin/master
- --></template>
+</template>

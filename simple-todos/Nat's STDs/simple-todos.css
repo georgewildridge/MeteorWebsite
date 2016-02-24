@@ -37,11 +37,10 @@ header {
 }
 #buttons {
   display: block;
-  float: left;
 }
-.enrolledClass {
+/*.enrolledClass {
   float: center;
-}
+}*/
 
 
 h1 {

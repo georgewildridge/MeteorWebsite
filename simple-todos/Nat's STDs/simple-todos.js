@@ -1,7 +1,5 @@
 
 Tasks = new Mongo.Collection("tasks");
-choateUsers = new Mongo.Collection('choateUsers');  //var means private
-Courses = new Mongo.Collection('courses');  //var means private
 
 
 if (Meteor.isServer) {
@@ -19,7 +17,6 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   // This code only runs on the client
-  Meteor.subscribe("choateUsers");
   Meteor.subscribe("tasks");
 
   Template.body.helpers({
@@ -41,61 +38,19 @@ if (Meteor.isClient) {
   });
 
   Template.body.events({
-   
-
-
-
-
-    // "submit .new-task": function (event) {
-    //   var texter = document.getElementById("texter").value;
-      
-
-    //   // Prevent default browser form submit
-    //   // event.preventDefault();
-    //   // console.log(event);
-    //   // // Get value from form element
-    //   // //var text = event.target.text.value;
-    //   // var texter = document.getElementById('texter');
-    //   // console.log(texter);
-    //   // // Insert a task into the collection
-    //   // Meteor.call("addTask", texter);
-
-    //   // Clear form
-    //   //event.target.text.value = "";
-    // },
-    // "submit .new-task": function (name, teacher, block) {
-    //   // Prevent default browser form submit
-    //   name.preventDefault();
-    //   teacher.preventDefault();
-    //   block.preventDefault();
-
-    //   // Get value from form element
-    //   var textName = name.target.text.value;
-    //   var textTeacher = teacher.target.text.value;
-    //   var textBlock = block.target.text.value;
-
-    //   // Insert a task into the collection
-    //   Meteor.call("addTask", textName, textTeacher, textBlock);
-
-    //   // Clear form
-    //   name.target.text.value = "";
-    //   teacher.target.text.value = "";
-    //   block.target.text.value = "";
-    // },
     "change .hide-completed input": function (event) {
       Session.set("hideCompleted", event.target.checked);
     },
     "change .hide-completed input": function (event) {
       Session.set("hideCompleted", event.target.checked);
     }
-
   });
 
   Template.task.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
     },
-    'title': function() {
+    'title': function() {  //SAVE THIS... IT IS HOW/WHERE WE WILL INCLUDE THE JSON FILE INFO FOR THE ENROLL/CREATE DIVS
       // console.log(Tasks.findOne(Meteor.userId));
       // return Tasks.findOne({Meteor.userId});
     }
@@ -104,11 +59,7 @@ if (Meteor.isClient) {
   Template.task.events({
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
-    
       Meteor.call("setChecked", this._id, ! this.checked);
-
-      
-
     },
     "click .delete": function () {
       Meteor.call("deleteTask", this._id);
@@ -117,7 +68,9 @@ if (Meteor.isClient) {
       Meteor.call("setPrivate", this._id, ! this.private);
     }
   });
+
   Template.buttons.events({
+    //Nat's Test for enroll
     'click .create': function () {
       document.getElementById('createDiv').style.display = "block";
     },
@@ -125,86 +78,26 @@ if (Meteor.isClient) {
       console.log("en test");
       //document.getElementById('enrollDiv').style.display = "block";
       document.getElementById('bunnyDiv').style.display = "block";
+     //George's Tests for enroll
+      Meteor.call("addUser", "George", "AP CS","ms hoke", "d" );
+      Meteor.call("addClassDiv", "hello");
+    },
+  });  
+
+  Template.create.events({
+    'click .destroyCreate':function(){
+      document.getElementById('createDiv').style.display = "none";
     }
   });
 
-    Template.create.events({
-      'click .destroyCreate':function(){
-        document.getElementById('createDiv').style.display = "none";
-      }
- });
-    Template.enroll.events({
-      'click .destroyEnroll':function(){
-        document.getElementById('createDiv2').style.display = "none";
-      }
-    });
-
-  Accounts.ui.config({
-    passwordSignupFields: "USERNAME_ONLY"
+  Template.enroll.events({
+    'click .destroyEnroll':function(){
+      document.getElementById('createDiv2').style.display = "none";
+    }
   });
-  Template.buttons.helpers({
-     // 'dell': function () {
-     //    choateUsers.insert({
-     //      'name': "Kanye",
-     //      'info': {
-     //        'title': "APCS",
-     //        'instructor': "Ms. Hoke", 
-     //        'block': "d"}
-     //    })
-     //   // console.log(choateUsers.find());
-     //  }
-      // 'dispClassList': function (){
-      //   var  player = choateUsers.find() 
-      // }
-  });
-  Template.buttons.events({
-    "click .enroll": function () {
-      Meteor.call("addUser", "George", "AP CS","ms hoke", "d" );
-      Meteor.call("addClassDiv", "hello");
 
 
-      //console.log("enroll");
-    },
-    
-    // "click .create": function (event) {
-    //   // Prevent default browser form submit
-    //   event.preventDefault();
 
-    //   // Get value from form element
-    //   var text = event.target.text.value;
-    //   console.log(text);
-    //   // Insert a task into the collection
-    //   Meteor.call("addTask", text);
-
-    //   // Clear form
-    //   event.target.text.value = "";
-    // }
-
-    // "click .create": function (name, teacher, block) {
-    //   // Prevent default browser form submit
-    //   name.preventDefault();
-    //   teacher.preventDefault();
-    //   block.preventDefault();
-
-    //   // Get value from form element
-    //   var textName = name.target.text.value;
-    //   var textTeacher = teacher.target.text.value;
-    //   var textBlock = block.target.text.value;
-
-    //   // Insert a task into the collection
-    //   Meteor.call("addTask", textName, textTeacher, textBlock);
-
-    //   // Clear form
-    //   name.target.text.value = "";
-    //   teacher.target.text.value = "";
-    //   block.target.text.value = "";
-    // }
-  });
-  // Template.classes.events({
-  //   'name': function() {
-  //     return choateUsers.find();
-  //   }
-  // });\
   Template.create.events({
     "click .submitCreate": function () {
       var name = document.getElementById("textName").value;
@@ -218,30 +111,14 @@ if (Meteor.isClient) {
     }
   })
 
+  Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
+  });
 }
 
-
-
-
-
-
-
-
-
+//------------------------------------------------
 
 Meteor.methods({
-  // addTask: function (text) {
-  //   // Make sure the user is logged in before inserting a task
-  //   if (! Meteor.userId()) {
-  //     throw new Meteor.Error("not-authorized");
-  //   }
-  //   Tasks.insert({
-  //     text: text,
-  //     createdAt: new Date(),
-  //     owner: Meteor.userId(),
-  //     username: Meteor.user().username
-  //   });
-  // },
   addTask: function (name, teacher, blockTime) {
     // Make sure the user is logged in before inserting a task
     if (! Meteor.userId()) {
@@ -291,50 +168,4 @@ Meteor.methods({
     // msgContainer.className = "";
     document.getElementById("yolo").appendChild(msgContainer);
   },
-// <<<<<<< HEAD
-//   // addUser: function (nameUser, class, teacher, classBlock){
-//   //   choateUsers.insert({
-//   //     'name': "nameUser",
-//   //     'title': "class",
-//   //     'instructor': "teacher",
-//   //     'block': "classBlock"
-//   //   });
-//   // }
-// =======
-//   addUser: function (nameUser, class, teacher, classBlock){
-//     choateUsers.insert({
-//       'name': "nameUser",
-//       'title': "class",
-//       'instructor': "teacher",
-//       'block': "classBlock"
-//     });
-//   }
-// <<<<<<< HEAD
-  
-// =======
-// >>>>>>> origin/master
-//   // addClassDiv: function (nameUser){
-//   //   //var title = choateUsers.find({name: nameUser}).fetch();
-//   //   var msgContainer = document.createElement('div');
-//   //   //var ll = document.getElementByID("hello");
-//   //   msgContainer.id = 'hello';
-//   //   msgContainer.className = 'From the other side';
-//   //   msgContainer.appendChild(document.createTextNode("hello"));
-//   //   document.body.appendChild(msgContainer);//getElementByID("yolo")
-//   //  console.log("add class div");
-//   // }
-//   // addUser: function (nameUser, class, teacher, classBlock) {
-//   //   // Make sure the user is logged in before inserting a task
-//   //   if (! Meteor.userId()) {
-//   //     throw new Meteor.Error("not-authorized");
-//   //   }
-
-//   //   choateUsers.insert({
-//   //     'name':nameUser,
-//   //     'title': class,
-//   //     'instructor': teacher,
-//   //     'block': classBlock
-//   //   });
-//   // }
-// >>>>>>> origin/master
 });

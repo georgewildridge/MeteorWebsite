@@ -47,13 +47,17 @@
 
 
 <template name = "buttons">
-  <li class = "create"><button>Create a new class!</button></li>
-  <li class = "bunny"><button>Enroll in a class!</button></li>
+  <li class = "create"><button>Create/Enroll in a Class!</button></li>
+  <li class = "enroll"><button>Enroll in a class!</button></li>
 </template> 
+<!-- 
+<template name = "buttons2">
+  <li class = "enroll"><button>Enroll in a class!</button></li>
+</template> 
+ -->
 
-
-<template name="enroll">
-  <div id="erollDiv"  style="display:none;">
+<!-- <template name="enroll">
+  <div id="enrollDiv"  style="display:none;">
     <h3>What is your class called?</h3>
     <input className="className" placeholder = "Class Name"/>
 
@@ -74,7 +78,7 @@
     <li><button class = "destroyCreate">Cancel</button></li>
   </div>
 
-</template>
+</template> -->
 
 
 <template name="create">
@@ -103,5 +107,8 @@
       <button class = "destroyCreate">Cancel</button>
     </li>
 
+  </div>
+  <div id="enrollDiv"  style="display:none;">
+    <h3>Enroll here</h3>
   </div>
 </template>

@@ -5,7 +5,7 @@
 <body>
   <div class="container">
     <header>
-      <h1>Choate Book ({{incompleteCount}})</h1>
+      <h1>ChoateBook </h1>
 
      <!--  <label class="hide-completed">
         <input type="checkbox" checked="{{hideCompleted}}" />
@@ -14,7 +14,8 @@
 
       {{> loginButtons}}
       {{>buttons}}
-
+      {{> create}}
+<!-- 
       {{#if currentUser}}
         <form class="new-task">
           <input type="text" name="text" id="textName" placeholder="Type to add new class name" />
@@ -25,7 +26,7 @@
           <input type="text" name = "text" class = "new-text" placeholder="dh"/>
         </form> -->
       {{/if}}
-
+ -->
     </header>
     <ul class = "enrolledClass"><strong> My Enrolled Classes </strong></ul>
     <ul id = "yolo"><div>what</div></ul>
@@ -64,8 +65,50 @@
 </template>
 
 <template name = "buttons">
+<<<<<<< HEAD
+<div><ol>
+  <!-- <input type = "button" class="create" value="Create A Class">
+  <input type = "button" class="enroll" value="Enroll In A Class"> -->
+  <li class = "create"><button>Create a new class!</button></li>
+  <li class = "bunny"><button>Enroll in a class!</button></li>
+  <!-- <div id='content'>Hello World</div>
+  <input type='button' id='hideshow' value='hide/show'>
+ -->
+  </ol>
+</div>
+<!-- <select>
+      <option value = "first">Enroll in a class</option>
+      <option value = "second">second</option>
+      <option value = <input type="text">
+      <input type="text" placeholder = "Filler"/>
+      </option>
+    </select> -->
+</template> 
+<template name="enroll">
+  <div id="erollDiv"  style="display:none;">
+    <h3>What is your class called?</h3>
+    <input className="className" placeholder = "Class Name"/>
+
+    <h3>What is the teacher's name?</h3>
+    <input teacher="teacher" placeholder = "Teacher's Name"/>
+
+    <h3>What block does your class meet?</h3>
+    <select> <option value="NA">Choose a block</option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+    <option value="E">E</option>
+    <option value="F">F</option>
+    <option value="G">G</option>
+    <option value="H">H</option></select>
+
+    <li><button class = "destroyCreate">Cancel</button></li>
+  </div>
+=======
   <input type = "button" class="create" value="Create A Class">
   <input type = "button" class="enroll" value="Enroll In A Class">
+<<<<<<< HEAD
 
  <!--  {{#each player}}
   {{dell}} -->
@@ -73,4 +116,32 @@
 
 <template name = "classes">
   <span class = "classdiv">{{name}}</span>
+=======
+  {{dell}}
+>>>>>>> origin/master
+</template>
+
+
+<template name="create">
+  <div id="createDiv"  style="display:none;">
+    <h3>What is your class called?</h3>
+    <input className="className" placeholder = "Class Name"/>
+
+    <h3>What is the teacher's name?</h3>
+    <input teacher="teacher" placeholder = "Teacher's Name"/>
+
+    <h3>What block does your class meet?</h3>
+    <select> <option value="NA">Choose a block</option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+    <option value="E">E</option>
+    <option value="F">F</option>
+    <option value="G">G</option>
+    <option value="H">H</option></select>
+
+    <li><button class = "destroyCreate">Cancel</button></li>
+  </div>
+>>>>>>> origin/master
 </template>

@@ -1,6 +1,8 @@
+
 Tasks = new Mongo.Collection("tasks");
 choateUsers = new Mongo.Collection('choateUsers');  //var means private
 Courses = new Mongo.Collection('courses');  //var means private
+
 
 if (Meteor.isServer) {
   // This code only runs on the server
@@ -115,6 +117,27 @@ if (Meteor.isClient) {
       Meteor.call("setPrivate", this._id, ! this.private);
     }
   });
+  Template.buttons.events({
+    'click .create': function () {
+      document.getElementById('createDiv').style.display = "block";
+    },
+    'click .bunny': function () {
+      console.log("en test");
+      //document.getElementById('enrollDiv').style.display = "block";
+      document.getElementById('bunnyDiv').style.display = "block";
+    }
+  });
+
+    Template.create.events({
+      'click .destroyCreate':function(){
+        document.getElementById('createDiv').style.display = "none";
+      }
+ });
+    Template.enroll.events({
+      'click .destroyEnroll':function(){
+        document.getElementById('createDiv2').style.display = "none";
+      }
+    });
 
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
@@ -264,6 +287,7 @@ Meteor.methods({
     // msgContainer.className = "";
     document.getElementById("yolo").appendChild(msgContainer);
   },
+<<<<<<< HEAD
   // addUser: function (nameUser, class, teacher, classBlock){
   //   choateUsers.insert({
   //     'name': "nameUser",
@@ -272,6 +296,19 @@ Meteor.methods({
   //     'block': "classBlock"
   //   });
   // }
+=======
+  addUser: function (nameUser, class, teacher, classBlock){
+    choateUsers.insert({
+      'name': "nameUser",
+      'title': "class",
+      'instructor': "teacher",
+      'block': "classBlock"
+    });
+  }
+<<<<<<< HEAD
+  
+=======
+>>>>>>> origin/master
   // addClassDiv: function (nameUser){
   //   //var title = choateUsers.find({name: nameUser}).fetch();
   //   var msgContainer = document.createElement('div');
@@ -295,4 +332,5 @@ Meteor.methods({
   //     'block': classBlock
   //   });
   // }
+>>>>>>> origin/master
 });

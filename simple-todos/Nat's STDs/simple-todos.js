@@ -78,30 +78,6 @@ if (Meteor.isClient) {
     //Nat's Test for enroll
     'click .create': function () {
       document.getElementById('createDiv').style.display = "block";
-<<<<<<< HEAD
-      //document.getElementById('enrollDiv').style.display = "block";
-    },
-    'click.enroll':function(){
-      document.getElementById('enrollDiv').style.display = "block";
-    }
-  }); 
-  // Template.buttons2.events({
-  //   'click .enroll': function () {
-  //     console.log("en test");
-  //     //document.getElementById('enrollDiv').style.display = "block";
-  //     document.getElementById('enrollDiv').style.display = "block";
-  //    //George's Tests for enroll
-  //     Meteor.call("addUser", "George", "AP CS","ms hoke", "d" );
-  //     Meteor.call("addClassDiv", "hello");
-  //     console.log("en test2");
-  //   }, 
-  // });
-  Template.create.events({
-    'click .destroyCreate':function(){
-      document.getElementById('createDiv').style.display = "none";
-    }
-  });
-=======
     },
     'click .enroll': function () {
       document.getElementById("enrollDiv").style.display = "block";
@@ -112,13 +88,12 @@ if (Meteor.isClient) {
     }
   });  
 
->>>>>>> origin/master
 
-  // Template.enroll.events({
-  //   'click .destroyEnroll':function(){
-  //     document.getElementById('createDiv2').style.display = "none";
-  //   }
-  // });
+  Template.enroll.events({
+    'click .destroyEnroll':function(){
+      document.getElementById('createDiv2').style.display = "none";
+    }
+  });
 
 
   Template.create.events({

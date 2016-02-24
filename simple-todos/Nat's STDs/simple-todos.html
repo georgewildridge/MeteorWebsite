@@ -17,8 +17,13 @@
 
       {{#if currentUser}}
         <form class="new-task">
-          <input type="text" name="text" placeholder="Type to add new tasks" />
+          <input type="text" name="text" id="textName" placeholder="Type to add new class name" />
+         <input type="text" name="teacher" id = "textTeacher" placeholder="Type to add new teacher"/>
+          <input type="text" name="block" id = "textBlock" placeholder="Type to add what block"/>
         </form>
+       <!--  <form class="new-task">
+          <input type="text" name = "text" class = "new-text" placeholder="dh"/>
+        </form> -->
       {{/if}}
 
     </header>
@@ -30,7 +35,11 @@
         {{> task}}
       {{/each}}
     </ul>
-
+    <ul>
+<!--       {{#each choateUsers}}
+ -->        {{> classes}}
+<!--       {{/each}}
+ -->    </ul>
   </div>
 </body>
 
@@ -50,12 +59,18 @@
       </button>
     {{/if}}
 
-    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+    <span class="text"><strong>{{username}}</strong> - {{title}}</span>
   </li>
 </template>
 
 <template name = "buttons">
   <input type = "button" class="create" value="Create A Class">
   <input type = "button" class="enroll" value="Enroll In A Class">
-  {{dell}}
+
+ <!--  {{#each player}}
+  {{dell}} -->
+</template>
+
+<template name = "classes">
+  <span class = "classdiv">{{name}}</span>
 </template>

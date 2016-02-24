@@ -19,6 +19,7 @@ if (Meteor.isClient) {
   // This code only runs on the client
   Meteor.subscribe("tasks");
 
+
   Template.body.helpers({
     tasks: function () {
       if (Session.get("hideCompleted")) {
@@ -37,6 +38,7 @@ if (Meteor.isClient) {
     }
   });
 
+
   Template.body.events({
     "change .hide-completed input": function (event) {
       Session.set("hideCompleted", event.target.checked);
@@ -45,6 +47,7 @@ if (Meteor.isClient) {
       Session.set("hideCompleted", event.target.checked);
     }
   });
+
 
   Template.task.helpers({
     isOwner: function () {
@@ -55,6 +58,7 @@ if (Meteor.isClient) {
       // return Tasks.findOne({Meteor.userId});
     }
   });
+
 
   Template.task.events({
     "click .toggle-checked": function () {
@@ -69,33 +73,27 @@ if (Meteor.isClient) {
     }
   });
 
+
   Template.buttons.events({
     //Nat's Test for enroll
     'click .create': function () {
       document.getElementById('createDiv').style.display = "block";
     },
-    'click .bunny': function () {
-      console.log("en test");
-      //document.getElementById('enrollDiv').style.display = "block";
-      document.getElementById('bunnyDiv').style.display = "block";
-     //George's Tests for enroll
-      Meteor.call("addUser", "George", "AP CS","ms hoke", "d" );
-      Meteor.call("addClassDiv", "hello");
-    },
+    'click .enroll': function () {
+      document.getElementById("enrollDiv").style.display = "block";
+     // // document.getElementById('enrollDiv').style.display = "block";
+     // //George's Tests for enroll
+     //  Meteor.call("addUser", "George", "AP CS","ms hoke", "d" );
+     //  Meteor.call("addClassDiv", "hello");
+    }
   });  
 
-  Template.create.events({
-    'click .destroyCreate':function(){
-      document.getElementById('createDiv').style.display = "none";
-    }
-  });
 
   Template.enroll.events({
     'click .destroyEnroll':function(){
       document.getElementById('createDiv2').style.display = "none";
     }
   });
-
 
 
   Template.create.events({
@@ -107,7 +105,10 @@ if (Meteor.isClient) {
       name = "";
       teacher = "";
       block = "";
-
+      document.getElementById('createDiv').style.display = "none";
+    },
+    'click .destroyCreate':function(){
+      document.getElementById('createDiv').style.display = "none";
     }
   })
 

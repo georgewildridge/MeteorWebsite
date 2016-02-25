@@ -47,8 +47,8 @@
 
 <template name = "buttons">
   <li>
-    <button class = "create">Create a new class!</button>
-    <button class = "enroll">Enroll in a class!</button>
+    <button class = "topButton" id = "create">Create a new class!</button>
+    <button class = "topButton" id = "enroll">Enroll in a class!</button>
   </li>
 </template> 
 
@@ -68,7 +68,9 @@
     </select>
 
     <li>
-      <button class = "destroyEnroll">Cancel</button>
+      <button class = "subButton" id = "destroyEnroll">Cancel</button>
+      <button class = "subButton" id = "submitEnroll">Submit</button>
+
     </li>
   </div>
 </template>
@@ -96,8 +98,8 @@
       </select>
 
     <li>
-      <button class = "submitCreate">Submit</button>
-      <button class = "destroyCreate">Cancel</button>
+      <button class = "subButton" id = "submitCreate">Submit</button>
+      <button class = "subButton" id = "destroyCreate">Cancel</button>
     </li>
 
   </div>

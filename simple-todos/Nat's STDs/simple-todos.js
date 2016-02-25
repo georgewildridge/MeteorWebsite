@@ -82,10 +82,10 @@ if (Meteor.isClient) {
 
   Template.buttons.events({
     //Nat's Test for enroll
-    'click .create': function () {
+    'click #create': function () {
       document.getElementById('createDiv').style.display = "block";
     },
-    'click .enroll': function () {
+    'click #enroll': function () {
       document.getElementById("enrollDiv").style.display = "block";
      // // document.getElementById('enrollDiv').style.display = "block";
      // //George's Tests for enroll
@@ -96,14 +96,14 @@ if (Meteor.isClient) {
 
 
   Template.enroll.events({
-    'click .destroyEnroll':function(){
+    'click #destroyEnroll':function(){
       document.getElementById('enrollDiv').style.display = "none";
     }
   });
 
 
   Template.create.events({
-    "click .submitCreate": function () {
+    "click #submitCreate": function () {
       var name = document.getElementById("textName").value;
       var teacher = document.getElementById("textTeacher").value;
       var block = document.getElementById("textBlock").value;
@@ -113,7 +113,7 @@ if (Meteor.isClient) {
       block = "";
       document.getElementById('createDiv').style.display = "none";
     },
-    'click .destroyCreate':function(){
+    'click #destroyCreate':function(){
       document.getElementById('createDiv').style.display = "none";
     }
   })

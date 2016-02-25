@@ -62,6 +62,11 @@ if (Meteor.isClient) {
     'title': function() {  //SAVE THIS... IT IS HOW/WHERE WE WILL INCLUDE THE JSON FILE INFO FOR THE ENROLL/CREATE DIVS
       // console.log(Tasks.findOne(Meteor.userId));
       // return Tasks.findOne({Meteor.userId});
+    },
+    'private': function() {
+      if (task.owner !== Meteor.userId()) {
+        throw new Meteor.Error("not-authorized");
+      }
     }
   });
 
@@ -83,9 +88,11 @@ if (Meteor.isClient) {
   Template.buttons.events({
     //Nat's Test for enroll
     'click #create': function () {
+      document.getElementById('enrollDiv').style.display = "none";
       document.getElementById('createDiv').style.display = "block";
     },
     'click #enroll': function () {
+      document.getElementById('createDiv').style.display = "none";
       document.getElementById("enrollDiv").style.display = "block";
      // // document.getElementById('enrollDiv').style.display = "block";
      // //George's Tests for enroll

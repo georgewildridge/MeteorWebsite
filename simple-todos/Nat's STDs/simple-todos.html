@@ -1,11 +1,11 @@
 <head>
-  <title id = "pageTitle">Choate Book</title>
+  <title id = "pageTitle">ChoateBook</title>
 </head>
 
 <body>
   <div class="container">
     <header>
-      <h1>ChoateBook </h1>
+      <h1>ChoateBook</h1>
 
       {{> loginButtons}}
       {{#if currentUser}}
@@ -18,17 +18,29 @@
     <ul class = "enrolledClass"><strong> My Enrolled Classes </strong></ul>
     <ul>
       {{#each tasks}}
-        {{> task}}
+        {{> task}}    
       {{/each}}
     </ul>
   </div>
 </body>
 
+<template name="choice">
+  <option>
+    <strong>Class Name-</strong>{{text}}- <strong>Teacher- </strong>{{instructor}} -<strong>Block- </strong>{{block}}
+  </option>
+</template>
+
+<template name="hey">
+  <option>
+    {{text}}
+  </option>
+</template>
+
 <template name="task">
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
     <button class="delete">&times;</button>
     
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+   <!--  <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 
     {{#if isOwner}}
       <button class="toggle-private">
@@ -38,16 +50,15 @@
           Public
         {{/if}}
       </button>
-    {{/if}}
+    {{/if}} -->
 
     <span class="text"><strong>Class Name: </strong> {{text}}  <strong>Teacher: </strong>{{instructor}} <strong>Block: </strong>{{block}}</span>
      <select> 
       <option id = "studentEnroll" value="NA">Enrolled Students</option>
       {{#each tasks}}
-        {{> username}}
+        {{>choice}}
       {{/each}}
     </select>
-
 
   </li>
 </template>
@@ -60,20 +71,16 @@
   </li>
 </template> 
 
-<template name="choice">
-  <option><strong>Class Name-</strong>{{text}}- <strong>Teacher- </strong>{{instructor}} -<strong>Block- </strong>{{block}} </option>
-</template>
 
-<template name="username">
-  <option>{{username}}</option>
-</template>
 
 
 <template name="enroll">
   <div style="display:none" id="enrollDiv">
+    
     <h3>Choose the class in which to enroll</h3>
+    
     <select id = enrollSelect> 
-      <option value="NA">oo a class</option>
+      <option value="NA">Choose a class</option>
       {{#each tasks}}
         {{> choice}}
       {{/each}}
@@ -82,15 +89,15 @@
     <li>
       <button class = "subButton" id = "submitEnroll">Submit</button>
       <button class = "subButton" id = "destroyEnroll">Cancel</button>
-      
-
     </li>
+  
   </div>
 </template>
 
 
 <template name="create">
   <div id="createDiv"  style="display:none;">
+   
     <h3>What is your class called?</h3>
     <input className="className" id = "textName" placeholder = "Class Name"/>
 

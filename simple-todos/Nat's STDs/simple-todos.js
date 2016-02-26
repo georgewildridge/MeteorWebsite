@@ -30,10 +30,10 @@ if (Meteor.isClient) {
     tasks: function () {
       if (Session.get("hideCompleted")) {
         // If hide completed is checked, filter tasks
-        return Tasks.find({checked: {$ne: true}}, {sort: {block: -1}});
+        return Tasks.find({checked: {$ne: true}}, {sort: {block: 1}});
       } else {
         // Otherwise, return all of the tasks
-        return Tasks.find({}, {sort: {createdAt: -1}});
+        return Tasks.find({}, {sort: {block: 1}});
       }
     },
     hideCompleted: function () {
@@ -42,6 +42,7 @@ if (Meteor.isClient) {
     incompleteCount: function () {
       return Tasks.find({checked: {$ne: true}}).count();
     }
+   
   });
 
 
@@ -58,12 +59,9 @@ if (Meteor.isClient) {
   Template.task.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
-    },
-    // 'private': function() {
-    //   if (task.owner !== Meteor.userId()) {
-    //     throw new Meteor.Error("not-authorized");
-    //   }
-    //}
+    }
+
+    
   });
 
 
@@ -120,6 +118,9 @@ if (Meteor.isClient) {
       var counter = Tasks.find({owner: Meteor.userId(), block: blockLetter}).count();
       if (counter == 0){
         Meteor.call("addTask", name,teacher,blockLetter);
+        name = "";
+        teacher = "";
+        blockLetter = "";
         document.getElementById('createDiv').style.display = "none";
       }
     },
@@ -148,7 +149,8 @@ Meteor.methods({
       instructor: teacher,
       block: blockTime,
       owner: Meteor.userId(),
-      username: Meteor.user().username
+      username: Meteor.user().username,
+      private: true
     });
   },
   deleteTask: function (taskId) {

@@ -1,19 +1,21 @@
 Tasks = new Mongo.Collection("tasks");
 
-
 if (Meteor.isServer) {
   // This code only runs on the server
   // Only publish tasks that are public or belong to the current user
   Meteor.publish("tasks", function () {
-    return Tasks.find(
-    // {
-    //   // $or: [
-    //   //   { private: {$ne: true} },
-    //   //   { owner: this.userId }
-    //   // ]
-    // }
-    );
-  });
+    return Tasks.find();
+  //   if (name == 1){
+
+  //   } else
+  //     return Tasks.find({
+  //       $or: [
+  //         { private: {$ne: true} },
+  //         { owner: this.userId }
+  //       ]
+  //   });
+  //});
+  })
 }
 
 if (Meteor.isClient) {
@@ -23,37 +25,42 @@ if (Meteor.isClient) {
 
   Template.enroll.helpers({
     tasks: function () {
-      return Tasks.find();
+      return Tasks.find({
+        $or: [
+          { private: {$ne: true} },
+          { owner: this.userId }
+        ]
+    });
     }
   })
 
   Template.body.helpers({
-    tasks: function () {
-      if (Session.get("hideCompleted")) {
-        // If hide completed is checked, filter tasks
-        return Tasks.find({checked: {$ne: true}}, {sort: {block: 1}});
-      } else {
-        // Otherwise, return all of the tasks
-        return Tasks.find({}, {sort: {block: 1}});
-      }
-    },
-    hideCompleted: function () {
-      return Session.get("hideCompleted");
-    },
-    incompleteCount: function () {
-      return Tasks.find({checked: {$ne: true}}).count();
-    }
+    // tasks: function () {
+    //   if (Session.get("hideCompleted")) {
+    //     // If hide completed is checked, filter tasks
+    //     return Tasks.find({$or: [{ private: {$ne: true} },{ owner: this.userId }], checked: {$ne: true}}, {sort: {block: 1}});
+    //   } else {
+    //     // Otherwise, return all of the tasks
+    //     return Tasks.find({$or: [{ private: {$ne: true} },{ owner: this.userId }]}, {sort: {block: 1}});
+    //   }
+    // },
+    // hideCompleted: function () {
+    //   return Session.get("hideCompleted");
+    // },
+    // incompleteCount: function () {
+    //   // return Tasks.find({$or: [{ private: {$ne: true} },{ owner: this.userId }],checked: {$ne: true}}).count();
+    // }
    
   });
 
 
   Template.body.events({
-    "change .hide-completed input": function (event) {
-      Session.set("hideCompleted", event.target.checked);
-    },
-    "change .hide-completed input": function (event) {
-      Session.set("hideCompleted", event.target.checked);
-    }
+    // "change .hide-completed input": function (event) {
+    //   Session.set("hideCompleted", event.target.checked);
+    // },
+    // "change .hide-completed input": function (event) {
+    //   Session.set("hideCompleted", event.target.checked);
+    // }
   });
 
 
@@ -67,19 +74,23 @@ if (Meteor.isClient) {
 
 
   Template.task.events({
-    "click .toggle-checked": function () {
-      // Set the checked property to the opposite of its current value
-      Meteor.call("setChecked", this._id, ! this.checked);
-    },
+    // "click .toggle-checked": function () {
+    //   // Set the checked property to the opposite of its current value
+    //   Meteor.call("setChecked", this._id, ! this.checked);
+    // },
     "click .delete": function () {
       Meteor.call("deleteTask", this._id);
     },
-    "click .toggle-private": function () {
-      Meteor.call("setPrivate", this._id, ! this.private);
-    }
+    // "click .toggle-private": function () {
+    //   Meteor.call("setPrivate", this._id, ! this.private);
+    // }
   });
 
-
+  Template.choice.helpers({
+    oneTime: function () {
+        //work on tomorrow
+    }
+  })
   Template.buttons.events({
     //Nat's Test for enroll
     'click #create': function () {
@@ -101,7 +112,7 @@ if (Meteor.isClient) {
       var unparsedText = document.getElementById("enrollSelect").value;
       var parseTextArray = unparsedText.split("-");
       if (parseTextArray.length > 1){
-        var counter = Tasks.find({owner: Meteor.userId(), block: parseTextArray[5].trim()}).count();
+        var counter = Tasks.find({owner: Meteor.userId(), block: parseTextArray[5].trim()}).count(); //$or: [{ private: {$ne: true} },{ owner: this.userId }]
         if (counter == 0) {
           Meteor.call("addTask", parseTextArray[1].trim(), parseTextArray[3].trim(), parseTextArray[5].trim());
           document.getElementById('enrollDiv').style.display = "none";
@@ -109,15 +120,21 @@ if (Meteor.isClient) {
       }
     }
   });
-
+  // Template.student.helpers({
+  //   for(i =0; i<Tasks.length;i++){
+  //     if()
+  //   }
+  // })
 
   Template.create.events({
     "click #submitCreate": function () {
+      console.log("hello");
       var name = document.getElementById("textName").value;
       var teacher = document.getElementById("textTeacher").value;
       var blockLetter = document.getElementById("textBlock").value;
-      var counter = Tasks.find({owner: Meteor.userId(), block: blockLetter}).count();
+      var counter = Tasks.find({$or: [{ private: {$ne: true} },{ owner: this.userId }], owner: Meteor.userId(), block: blockLetter}).count();
       if (counter == 0){
+                  console.log("here");
         Meteor.call("addTask", name,teacher,blockLetter);
         name = "";
         teacher = "";
@@ -144,15 +161,15 @@ Meteor.methods({
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
-
     Tasks.insert({
       text: name,
       instructor: teacher,
       block: blockTime,
       owner: Meteor.userId(),
       username: Meteor.user().username,
-      private: false
+      private: true
     });
+    
   },
   deleteTask: function (taskId) {
     var task = Tasks.findOne(taskId);
@@ -163,15 +180,15 @@ Meteor.methods({
 
     Tasks.remove(taskId);
   },
-  setChecked: function (taskId, setChecked) {
-    var task = Tasks.findOne(taskId);
-    if (task.private && task.owner !== Meteor.userId()) {
-      // If the task is private, make sure only the owner can check it off
-      throw new Meteor.Error("not-authorized");
-    }
+  // setChecked: function (taskId, setChecked) {
+  //   var task = Tasks.findOne(taskId);
+  //   if (task.private && task.owner !== Meteor.userId()) {
+  //     // If the task is private, make sure only the owner can check it off
+  //     throw new Meteor.Error("not-authorized");
+  //   }
 
-    Tasks.update(taskId, { $set: { checked: setChecked} });
-  },
+  //   Tasks.update(taskId, { $set: { checked: setChecked} });
+  // },
   setPrivate: function (taskId, setToPrivate) {
     var task = Tasks.findOne(taskId);
 
@@ -182,11 +199,11 @@ Meteor.methods({
 
     Tasks.update(taskId, { $set: { private: setToPrivate } });
   },
-  addClassDiv: function (nameUser){
+ /* addClassDiv: function (nameUser){
     var msgContainer = document.createElement('span');
     msgContainer.appendChild(document.createTextNode(nameUser));
     // msgContainer.id = "";
     // msgContainer.className = "";
     document.getElementById("yolo").appendChild(msgContainer);
-  },
-});
+  },*/
+})

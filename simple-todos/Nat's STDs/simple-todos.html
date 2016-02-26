@@ -61,7 +61,7 @@
 </template> 
 
 <template name="choice">
-  <option>{{text}}</option>
+  <option><strong>Class Name-</strong>{{text}}- <strong>Teacher- </strong>{{instructor}} -<strong>Block- </strong>{{block}} </option>
 </template>
 
 <template name="username">
@@ -72,16 +72,17 @@
 <template name="enroll">
   <div style="display:none" id="enrollDiv">
     <h3>Choose the class in which to enroll</h3>
-    <select> 
-      <option value="NA">Choose a class</option>
+    <select id = enrollSelect> 
+      <option value="NA">oo a class</option>
       {{#each tasks}}
         {{> choice}}
       {{/each}}
     </select>
 
     <li>
-      <button class = "subButton" id = "destroyEnroll">Cancel</button>
       <button class = "subButton" id = "submitEnroll">Submit</button>
+      <button class = "subButton" id = "destroyEnroll">Cancel</button>
+      
 
     </li>
   </div>

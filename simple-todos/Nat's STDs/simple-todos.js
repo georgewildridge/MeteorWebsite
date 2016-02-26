@@ -59,15 +59,11 @@ if (Meteor.isClient) {
     isOwner: function () {
       return this.owner === Meteor.userId();
     },
-    'title': function() {  //SAVE THIS... IT IS HOW/WHERE WE WILL INCLUDE THE JSON FILE INFO FOR THE ENROLL/CREATE DIVS
-      // console.log(Tasks.findOne(Meteor.userId));
-      // return Tasks.findOne({Meteor.userId});
-    },
-    'private': function() {
-      if (task.owner !== Meteor.userId()) {
-        throw new Meteor.Error("not-authorized");
-      }
-    }
+    // 'private': function() {
+    //   if (task.owner !== Meteor.userId()) {
+    //     throw new Meteor.Error("not-authorized");
+    //   }
+    //}
   });
 
 
@@ -94,10 +90,6 @@ if (Meteor.isClient) {
     'click #enroll': function () {
       document.getElementById('createDiv').style.display = "none";
       document.getElementById("enrollDiv").style.display = "block";
-     // // document.getElementById('enrollDiv').style.display = "block";
-     // //George's Tests for enroll
-     //  Meteor.call("addUser", "George", "AP CS","ms hoke", "d" );
-     //  Meteor.call("addClassDiv", "hello");
     }
   });  
 
@@ -105,6 +97,17 @@ if (Meteor.isClient) {
   Template.enroll.events({
     'click #destroyEnroll':function(){
       document.getElementById('enrollDiv').style.display = "none";
+    },
+    'click #submitEnroll': function() {
+      var unparsedText = document.getElementById("enrollSelect").value;
+      var parseTextArray = unparsedText.split("-");
+      if (parseTextArray.length > 1){
+        var counter = Tasks.find({owner: Meteor.userId(), block: parseTextArray[5].trim()}).count();
+        if (counter == 0) {
+          Meteor.call("addTask", parseTextArray[1].trim(), parseTextArray[3].trim(), parseTextArray[5].trim());
+          document.getElementById('enrollDiv').style.display = "none";
+        }
+      }
     }
   });
 
@@ -113,17 +116,18 @@ if (Meteor.isClient) {
     "click #submitCreate": function () {
       var name = document.getElementById("textName").value;
       var teacher = document.getElementById("textTeacher").value;
-      var block = document.getElementById("textBlock").value;
-      Meteor.call("addTask", name,teacher,block);
-      name = "";
-      teacher = "";
-      block = "";
-      document.getElementById('createDiv').style.display = "none";
+      var blockLetter = document.getElementById("textBlock").value;
+      var counter = Tasks.find({owner: Meteor.userId(), block: blockLetter}).count();
+      if (counter == 0){
+        Meteor.call("addTask", name,teacher,blockLetter);
+        document.getElementById('createDiv').style.display = "none";
+      }
     },
     'click #destroyCreate':function(){
       document.getElementById('createDiv').style.display = "none";
     }
   })
+
 
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"

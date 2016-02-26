@@ -17,8 +17,18 @@ body {
   font-size: 14px;
 }
 #pageTitle {
-  color:#ffffff;
-  font-family:Tahoma;
+  color: #f5d03b;
+  font-family: Tahoma;
+  text-align: center;
+  vertical-align: middle;
+}
+.enrolledClass {
+  color: #1b79f5;
+  font-family: Tahoma;
+  width: 80px;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 .container {
   max-width: 650px;

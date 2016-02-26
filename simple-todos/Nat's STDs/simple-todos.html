@@ -1,11 +1,14 @@
 <head>
-  <title id = "pageTitle">ChoateBook</title>
+  <title>ChoateBook</title>
 </head>
 
 <body>
   <div class="container">
     <header>
-      <h1>ChoateBook</h1>
+      <h1 id = "pageTitle">
+        <img src=http://www.choate.edu/uploaded/code/assets/bottomLogo.png alt="image" style = "width:17px;height:20px" >
+        ChoateBook
+      </h1>
 
       {{> loginButtons}}
       {{#if currentUser}}
@@ -15,7 +18,7 @@
       {{/if}}
 
     </header>
-    <ul class = "enrolledClass"><strong> My Enrolled Classes </strong></ul>
+    <ul class = "enrolledClass"><strong> My Classes </strong></ul>
     <ul>
       {{#each tasks}}
         {{> task}}    

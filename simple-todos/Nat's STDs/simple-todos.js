@@ -21,9 +21,11 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   // This code only runs on the client
-  Meteor.subscribe("tasks", true);
+ Meteor.subscribe("tasks", true);
 
-
+  // Template.body.onCreated(function() {
+  //     self.subscribe("tasks", true);
+  // });
  
   Template.body.helpers({
     tasks: function () {
@@ -54,6 +56,9 @@ if (Meteor.isClient) {
     }
   });
 
+  // Template.task.onCreated(function() {
+  //     self.subscribe("tasks", true);
+  // });
 
   Template.task.helpers({
     isOwner: function () {
@@ -94,7 +99,9 @@ if (Meteor.isClient) {
     }
   });  
 
-
+  // Template.enroll.onCreated(function() {
+  //     self.subscribe("tasks", true);
+  // });
   Template.enroll.events({
     'click #destroyEnroll':function(){
       document.getElementById('enrollDiv').style.display = "none";
@@ -117,7 +124,10 @@ if (Meteor.isClient) {
       return Tasks.find();
     }
   })
-
+  
+  // Template.create.onCreated(function() {
+  //     self.subscribe("tasks", true);
+  // });
   Template.create.events({
     "click #submitCreate": function () {
       var name = document.getElementById("textName").value;

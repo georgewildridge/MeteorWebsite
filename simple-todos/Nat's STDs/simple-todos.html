@@ -1,33 +1,36 @@
+<!-- AUTHORS: George Wildridge && Nat Kerman
+DATE OF SUBMISSION: 2/26/2016 -->
 <head>
-  <title>ChoateBook</title>
+  <title>ChoateBook</title> <!-- webpage title -->
 </head>
 
-<body>
+<body>  <!-- body div with top heading stuff -->
   <div class="container">
     <header>
       <h1 id = "pageTitle">
         <img src=http://www.choate.edu/uploaded/code/assets/bottomLogo.png alt="image" style = "width:17px;height:20px" >
         ChoateBook
       </h1>
-
-      {{> loginButtons}}
+<!-- SpaceBar Language commands initialize meteors interactions between the user and the code. -->
+      {{> loginButtons}}  <!-- initializes login template -->
       {{#if currentUser}}
-        {{>buttons}}
+        {{>buttons}}     <!-- initializes other templates -->
         {{> create}}
         {{> enroll}}
       {{/if}}
 
-    </header>
+    </header><!-- 
+    list of classes -->
     <ul class = "enrolledClass"><strong> My Classes </strong></ul>
     <ul>
-      {{#each tasks}}
+      {{#each tasks}}  <!--  basically a SpaceBar for loop iterating through each class in the database, "Task" -->
         {{> task}}    
       {{/each}}
     </ul>
   </div>
 </body>
 
-<template name="choice">
+<template name="choice"> <!-- templates with all the public/private/delete buttons -->
   <option>
     <strong>Class Name-</strong>{{text}}- <strong>Teacher- </strong>{{instructor}} -<strong>Block- </strong>{{block}}
   </option>
@@ -41,7 +44,9 @@
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
     <button class="delete">&times;</button>
     
-   <!--  <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+   <!--  <input type="checkbox" checked="{{checked}}" class="toggle-checked" />  
+
+     Not currently in use but potentially useful! Toggles whether a class is public/private
 
     {{#if isOwner}}
       <button class="toggle-private">
@@ -54,7 +59,7 @@
     {{/if}} -->
 
     <span class="text"><strong>Class Name: </strong> {{text}}  <strong>Teacher: </strong>{{instructor}} <strong>Block: </strong>{{block}}</span>
-     <select> 
+     <select> <!-- Lists the classes under my classes tab and theoretically lists enrolled students in a dropdown menu. Rather annoying -->
       <option id = "studentEnroll">Enrolled Students</option>
         {{#each tasks}}
           
@@ -67,7 +72,7 @@
 </template>
 
 
-<template name = "buttons">
+<template name = "buttons"> <!-- Template with the enroll and create buttons -->
   <li>
     <button class = "topButton" id = "create">Create a new class!</button>
     <button class = "topButton" id = "enroll">Enroll in a class!</button>
@@ -77,7 +82,7 @@
 
 
 
-<template name="enroll">
+<template name="enroll"> <!-- Enroll template with its own div to open when enroll button clicked -->
   <div style="display:none" id="enrollDiv">
     
     <h3>Choose the class in which to enroll</h3>
@@ -98,9 +103,9 @@
 </template>
 
 
-<template name="create">
+<template name="create"> <!-- create template with its own div to open when create button clicked -->
   <div id="createDiv"  style="display:none;">
-   
+  <!--  takes user input -->
     <h3>What is your class called?</h3>
     <input className="className" id = "textName" placeholder = "Class Name"/>
 
@@ -122,7 +127,7 @@
 
     <li>
       <button class = "subButton" id = "submitCreate">Submit</button>
-      <button class = "subButton" id = "destroyCreate">Cancel</button>
+      <button class = "subButton" id = "destroyCreate">Cancel</button>  <!-- cancel button closes div -->
     </li>
 
   </div>

@@ -1,11 +1,12 @@
-/* CSS declarations go here */
-body {
-  font-family: sans-serif;
-  background-color: #315481;
+/*AUTHORS: George Wildridge && Nat Kerman
+DATE OF SUBMISSION: 2/26/2016*/
+body {/*sets basic text preferences and background image*/
+  font-family: sans-serif;  /*font*/
+  background-color: #315481; 
   background-image: linear-gradient(to bottom, #315481, #918e82 100%);
   background-attachment: fixed;
 
-  position: absolute;
+  position: absolute; /*position data for foreground*/
   top: 0;
   bottom: 0;
   left: 0;
@@ -16,13 +17,13 @@ body {
 
   font-size: 14px;
 }
-#pageTitle {
+#pageTitle {  /*sets text and spacing for title*/
   color: #f5d03b;
   font-family: Tahoma;
   text-align: center;
   vertical-align: middle;
 }
-.enrolledClass {
+.enrolledClass {  /*sets text and spacing for enrolledClass list*/
   color: #315481;
   font-family: Tahoma;
   width: 80px;
@@ -30,25 +31,25 @@ body {
   margin-right: auto;
 
 }
-.container {
+.container {  /*sets text and spacing for CONTAINER*/
   max-width: 650px;
   margin: 0 auto;
   min-height: 100%;
   background: white;
 }
-#studentEnroll {
+#studentEnroll {    /*sets text and spacing for the Enrolled Students list*/
   float:right;
   position: relative;
 }
 
-header {
+header {    /*header text and spacing*/
   background: #d2edf4;
   background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
   padding: 20px 15px 15px 15px;
   position: relative;
 }
 
-#login-buttons {
+#login-buttons {  /*where to display login buttons*/
   /*display: block;*/
   float: right;
 }
@@ -59,7 +60,7 @@ header {
   float: center;
 }*/
 
-
+    /*Most of the rest of this is self explanatory. It's setting Position, text, and format preferences for all other stuff*/
 h1 {
   font-size: 1.5em;
   margin: 0;

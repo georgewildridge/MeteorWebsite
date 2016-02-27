@@ -1,5 +1,7 @@
+// AUTHORS: George Wildridge && Nat Kerman
+// DATE OF SUBMISSION: 2/26/2016
 Tasks = new Mongo.Collection("tasks");
-
+//Mongo databas collection of classes and associated info 
 
 if (Meteor.isServer) {
   // This code only runs on the server
@@ -27,8 +29,8 @@ if (Meteor.isClient) {
        this.subscribe("tasks", true);
   });
  
-  Template.body.helpers({
-    tasks: function () {
+  Template.body.helpers({   //helper functions for enroll
+    tasks: function () {     //finds the entire tasks list
       if (Session.get("hideCompleted")) {
         // If hide completed is checked, filter tasks
         return Tasks.find({checked: {$ne: true}}, {sort: {block: 1}});
@@ -48,8 +50,8 @@ if (Meteor.isClient) {
   });
 
 
-  Template.body.events({
-    "change .hide-completed input": function (event) {
+  Template.body.events({  //ActionListener style click events
+    "change .hide-completed input": function (event) {  //click on hide-completed button -> calls Hide Completed on object
       Session.set("hideCompleted", event.target.checked);
     },
     "change .hide-completed input": function (event) {
@@ -72,16 +74,16 @@ if (Meteor.isClient) {
 
 
 
-  Template.task.events({
+  Template.task.events({    //task's listener
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
       Meteor.call("setChecked", this._id, ! this.checked);
     },
-    "click .delete": function () {
-      Meteor.call("deleteTask", this._id);
+    "click .delete": function () {  //click on the delete "x" button
+      Meteor.call("deleteTask", this._id);  //calls delete function
     },
-    "click .toggle-private": function () {
-      Meteor.call("setPrivate", this._id, ! this.private);
+    "click .toggle-private": function () {  //click on public/private toggle
+      Meteor.call("setPrivate", this._id, ! this.private);  //switches permissions
     }
   });
  
@@ -90,11 +92,14 @@ if (Meteor.isClient) {
   });
 
   Template.buttons.events({
+    //listener for the buttons template (contains create and enroll buttons.)
+  //create button makes sure only createDiv div is shown
     'click #create': function () {
       document.getElementById('enrollDiv').style.display = "none";
       document.getElementById('createDiv').style.display = "block";
     },
     'click #enroll': function () {
+      //enroll button makes sure only EnrollDiv div is shown
       document.getElementById('createDiv').style.display = "none";
       document.getElementById("enrollDiv").style.display = "block";
     }
@@ -104,10 +109,12 @@ if (Meteor.isClient) {
       this.subscribe("tasks", true);
   });
   Template.enroll.events({
-    'click #destroyEnroll':function(){
-      document.getElementById('enrollDiv').style.display = "none";
-    },
+    'click #destroyEnroll':function(){  //listener for enroll template and div
+      document.getElementById('enrollDiv').style.display = "none"; //cancel button hides enrollDiv
+      },
     'click #submitEnroll': function() {
+
+      //stores the data entered by the user in the enrollDiv to the Tasks database
       var unparsedText = document.getElementById("enrollSelect").value;
       var parseTextArray = unparsedText.split("-");
       if (parseTextArray.length > 1){
@@ -130,6 +137,7 @@ if (Meteor.isClient) {
       this.subscribe("tasks", true);
   });
   Template.create.events({
+    //listener for create template and div
     "click #submitCreate": function () {
       var name = document.getElementById("textName").value;
       var teacher = document.getElementById("textTeacher").value;
@@ -143,7 +151,7 @@ if (Meteor.isClient) {
         document.getElementById('createDiv').style.display = "none";
       }
     },
-    'click #destroyCreate':function(){
+    'click #destroyCreate':function(){  //cancel button hides createDiv
       document.getElementById('createDiv').style.display = "none";
     }
   })
@@ -171,7 +179,7 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
-    Tasks.insert({
+    Tasks.insert({  //Method for inseting data into the database tasks used by create
       text: name,
       instructor: teacher,
       block: blockTime,

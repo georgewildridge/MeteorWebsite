@@ -23,7 +23,6 @@
       {{#each tasks}}
         {{> task}}    
       {{/each}}
-      {{>students}}
     </ul>
   </div>
 </body>
@@ -33,9 +32,13 @@
     <strong>Class Name-</strong>{{text}}- <strong>Teacher- </strong>{{instructor}} -<strong>Block- </strong>{{block}}
   </option>
 </template>
-
+<template name="username">
+  <option>
+    {{username}}
+  </option>
+</template>
 <template name="task">
-  <li >
+  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
     <button class="delete">&times;</button>
     
    <!--  <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
@@ -54,14 +57,13 @@
      <select> 
       <option id = "studentEnroll">Enrolled Students</option>
         {{#each tasks}}
-          <option>
-            {{username}}
-          </option>
+          
+            {{>username}}
+          
         {{/each}}
     </select>
 
   </li>
-  {{hidediv}}
 </template>
 
 

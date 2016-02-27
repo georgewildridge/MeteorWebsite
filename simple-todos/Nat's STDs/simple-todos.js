@@ -3,7 +3,7 @@ Tasks = new Mongo.Collection("tasks");
 
 if (Meteor.isServer) {
   // This code only runs on the server
-  // Only publish tasks that are public or belong to the current user
+  // This publishes classes that belong to the current user or publishes the entirety of the collection 
   Meteor.publish("tasks", function (author) {
     if (author == true){
       return Tasks.find({
@@ -21,11 +21,11 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   // This code only runs on the client
- Meteor.subscribe("tasks", true);
+// Meteor.subscribe("tasks", true);
 
-  // Template.body.onCreated(function() {
-  //     self.subscribe("tasks", true);
-  // });
+  Template.body.onCreated(function() {
+       this.subscribe("tasks", true);
+  });
  
   Template.body.helpers({
     tasks: function () {
@@ -36,6 +36,7 @@ if (Meteor.isClient) {
         // Otherwise, return all of the tasks
         return Tasks.find({}, {sort: {block: 1}});
       }
+
     },
     hideCompleted: function () {
       return Session.get("hideCompleted");
@@ -56,9 +57,9 @@ if (Meteor.isClient) {
     }
   });
 
-  // Template.task.onCreated(function() {
-  //     self.subscribe("tasks", true);
-  // });
+  Template.task.onCreated(function() {
+      this.subscribe("tasks", true);
+  });
 
   Template.task.helpers({
     isOwner: function () {
@@ -68,6 +69,7 @@ if (Meteor.isClient) {
     //   if ()
     // }
   });
+
 
 
   Template.task.events({
@@ -83,12 +85,11 @@ if (Meteor.isClient) {
     }
   });
  
-  // Template.buttons.onCreated(function() {
-  //     self.subscribe("tasks", true);
-  // });
+  Template.buttons.onCreated(function() {
+      this.subscribe("tasks", true);
+  });
 
   Template.buttons.events({
-    //Nat's Test for enroll
     'click #create': function () {
       document.getElementById('enrollDiv').style.display = "none";
       document.getElementById('createDiv').style.display = "block";
@@ -99,9 +100,9 @@ if (Meteor.isClient) {
     }
   });  
 
-  // Template.enroll.onCreated(function() {
-  //     self.subscribe("tasks", true);
-  // });
+  Template.enroll.onCreated(function() {
+      this.subscribe("tasks", true);
+  });
   Template.enroll.events({
     'click #destroyEnroll':function(){
       document.getElementById('enrollDiv').style.display = "none";
@@ -125,9 +126,9 @@ if (Meteor.isClient) {
     }
   })
   
-  // Template.create.onCreated(function() {
-  //     self.subscribe("tasks", true);
-  // });
+  Template.create.onCreated(function() {
+      this.subscribe("tasks", true);
+  });
   Template.create.events({
     "click #submitCreate": function () {
       var name = document.getElementById("textName").value;
@@ -147,6 +148,14 @@ if (Meteor.isClient) {
     }
   })
 
+
+  // Theoretically these templates only should subscribe to the full collection; however, when this happens the entirety of the code pulls from the collection which shows all of the private divs. It was odd, extremely frustratring and we couldn't find a work around.
+  // Template.choice.onCreated(function() {
+  //     this.subscribe("tasks", false);
+  // });
+  // Template.username.onCreated(function() {
+  //     this.subscribe("tasks", false);
+  // });
 
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
@@ -168,7 +177,7 @@ Meteor.methods({
       block: blockTime,
       owner: Meteor.userId(),
       username: Meteor.user().username,
-      private: false
+      private: true
     });
   },
   deleteTask: function (taskId) {
